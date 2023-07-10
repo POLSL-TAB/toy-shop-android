@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+
+    <group android:id="@+id/home">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/baseline_home_24"
+            android:title="@string/menu_home" />
+    </group>
+    <group
+        android:id="@+id/userGroup"
+        android:visible="false">
+        <item
+            android:id="@+id/nav_shoppingCart"
+            android:icon="@drawable/baseline_shopping_cart_24"
+            android:title="@string/menu_shopping_cart" />
+        <item
+            android:id="@+id/nav_orders"
+            android:icon="@drawable/baseline_shopping_basket_24"
+            android:title="@string/menu_orders" />
+        <item
+            android:id="@+id/qwerty123"
+            android:icon="@drawable/baseline_account_circle_24"
+            android:title="@string/menu_profile" />
+    </group>
+
+    <group
+        android:id="@+id/staffGroup"
+        android:visible="false">
+        <item
+            android:id="@+id/nav_addProduct"
+            android:icon="@drawable/baseline_add_circle_24"
+            android:title="@string/menu_add_product" />
+
+        <item
+            android:id="@+id/nav_updateProduct"
+            android:icon="@drawable/baseline_upload_24"
+            android:title="@string/menu_add_update_product" />
+
+        <item
+            android:id="@+id/nav_complaints"
+            android:icon="@drawable/baseline_arrow_back_24"
+            android:title="@string/menu_complaint" />
+
+    </group>
+
+
+    <group
+        android:id="@+id/adminPanelGroup"
+        android:visible="false">
+        <item
+            android:id="@+id/nav_adminPanel"
+            android:icon="@drawable/baseline_admin_panel_settings_24"
+            android:title="@string/menu_admin_Panel" />
+
+    </group>
+    <group
+        android:id="@+id/infoPanelGroup">
+        <item
+            android:id="@+id/nav_login"
+            android:icon="@drawable/baseline_login_24"
+            android:title="@string/menu_login" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/baseline_info_24"
+            android:title="@string/menu_about" />
+    </group>
+
+
+
+
+</menu>

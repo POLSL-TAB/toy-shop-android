@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/productDetailsList"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ImageShoppingCartDetails"
+        android:layout_width="85dp"
+        android:layout_height="97dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/toy_shop_logo" />
+
+    <TextView
+        android:id="@+id/nameProductShoppingCartDeatils"
+        android:layout_width="113dp"
+        android:layout_height="99dp"
+        android:gravity="center"
+        android:text="Product1"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/quantityDetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_weight="1"
+        android:gravity="center|left"
+        android:text="Ilość: " />
+
+</LinearLayout>

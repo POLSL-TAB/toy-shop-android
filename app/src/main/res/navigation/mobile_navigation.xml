@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="pl.shop.toyshop.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_orders"
+        android:name="pl.shop.toyshop.ui.orders.OrdersFragment"
+        android:label="@string/menu_orders"
+        tools:layout="@layout/fragment_orders" >
+        <action
+            android:id="@+id/action_nav_orders_to_ordersDeatilsFragment"
+            app:destination="@id/ordersDeatilsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="pl.shop.toyshop.ui.about.AboutFragment"
+        android:label="@string/menu_about"
+        tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/productDetailsFragment"
+        android:name="pl.shop.toyshop.ui.home.ProductDetailsFragment"
+        android:label="@string/menu_home_details"
+        tools:layout="@layout/fragment_product_details" />
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="pl.shop.toyshop.ui.login_signup.LoginFragment"
+        android:label="@string/menu_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_nav_login_to_nav_home"
+            app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_nav_login_to_signupFragment"
+            app:destination="@id/signupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="pl.shop.toyshop.ui.login_signup.SignupFragment"
+        android:label="@string/menu_signup"
+        tools:layout="@layout/fragment_signup" >
+        <action
+            android:id="@+id/action_signupFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_shoppingCart"
+        android:name="pl.shop.toyshop.ui.shoppingCart.ShoppingCartFragment"
+        android:label="@string/menu_shopping_cart"
+        tools:layout="@layout/fragment_shopping_cart" />
+    <fragment
+        android:id="@+id/nav_addProduct"
+        android:name="pl.shop.toyshop.ui.addProduct.addProductFragment"
+        android:label="fragment_add_product"
+        tools:layout="@layout/fragment_add_product" />
+    <fragment
+        android:id="@+id/nav_adminPanel"
+        android:name="pl.shop.toyshop.ui.adminPanel.adminPanelFragment"
+        android:label="fragment_admin_panel"
+        tools:layout="@layout/fragment_admin_panel" />
+    <fragment
+        android:id="@+id/nav_complaints"
+        android:name="pl.shop.toyshop.ui.complaints.complaintsFragment"
+        android:label="fragment_complaints"
+        tools:layout="@layout/fragment_complaints" />
+    <fragment
+        android:id="@+id/nav_updateProduct"
+        android:name="pl.shop.toyshop.ui.updateProduct.updateProductFragment"
+        android:label="fragment_update_product"
+        tools:layout="@layout/fragment_update_product" />
+    <fragment
+        android:id="@+id/ordersDeatilsFragment"
+        android:name="pl.shop.toyshop.ui.orders.OrdersDeatilsFragment"
+        android:label="@string/order_complaint_details"
+        tools:layout="@layout/fragment_orders_deatils" />
+</navigation>

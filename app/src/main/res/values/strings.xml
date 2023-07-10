@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">ToyShop</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="firstName">Imię(Opcjonalne)</string>
+    <string name="lastName">Nazwisko(Opcjonalne)</string>
+    <string name="menu_home">Strona główna</string>
+    <string name="menu_home_details">Szczegóły produktu</string>
+    <string name="menu_orders">Moje zamówienia</string>
+    <string name="menu_shopping_cart">Mój koszyk</string>
+    <string name="menu_profile">Profil</string>
+    <string name="menu_about">O nas</string>
+    <string name="menu_zaloguj">Zaloguj</string>
+    <string name="menu_wyloguj">Wyloguj</string>
+    <string name="menu_login">Logowanie</string>
+    <string name="menu_signup">Zarejestruj się</string>
+    <string name="menu_add_product">Dodaj produkt</string>
+    <string name="menu_add_update_product">Aktualizacja produktu</string>
+    <string name="menu_complaint">Reklamacje</string>
+    <string name="menu_admin_Panel">Panel administracyjny</string>
+    <string name="report_complaint">Napisz powód reklamacji</string>
+    <string name="order_complaint_details">Szczegoły zamówienia</string>
+    <string name="button_report_complaint_close">Zgłoś reklamację</string>
+    <string name="button_report_complaint_open">Zamknij okno reklamacji</string>
+    <string name="button_show_orders_complain">Pokaż zgłoszenie reklamacji</string>
+    <string name="button_hide_orders_complain">Zamknij zgłoszenie reklamacji</string>
+
+
+
+</resources>

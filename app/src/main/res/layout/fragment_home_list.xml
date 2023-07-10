@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/productView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:gravity="left"
+    android:orientation="horizontal"
+    android:visibility="visible"
+    android:clickable="true">
+
+
+    <ImageView
+        android:id="@+id/imageToy"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        tools:src="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:id="@+id/infoProduct"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+            android:text="product"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-thin"
+            android:lineSpacingExtra="34sp"
+            android:text="Cena: 100zł"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/stock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:text="Dostępneość: 20 sztuk"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+
+</LinearLayout>
