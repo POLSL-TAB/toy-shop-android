@@ -1,6 +1,7 @@
 package pl.shop.toyshop.ui.login_signup
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.TextPaint
 import androidx.fragment.app.Fragment
@@ -30,6 +31,7 @@ class LoginFragment : Fragment() {
 
     private val loginViewModel: LoginViewModel by activityViewModels()
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -61,13 +63,13 @@ class LoginFragment : Fragment() {
         val urlItems = "http://192.168.0.138:8080/api/cart/items"
         val urlStaff = "http://192.168.0.138:8080/api/staff/complaints/all"
         val urlAdmin = "http://192.168.0.138:8080/api/admin/users/all"
-        /* val email = "example@admin"
-        val password = "example"*/
+         val email = "example@staff"
+        val password = "example"
 
         loginButton.setOnClickListener {
             if (loginItem.title == getString(R.string.menu_login)){
-            val email =emailText.text.toString()
-            val password = passwordText.text.toString()
+            val email = email  //emailText.text.toString()
+            val password =  password  //passwordText.text.toString()
             val userRole = checkingRole(email, password, urlItems)
             val staffRole = checkingRole(email, password, urlStaff)
             val adminRole = checkingRole(email, password, urlAdmin)

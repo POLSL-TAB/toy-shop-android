@@ -64,7 +64,6 @@ class OrdersDeatilsFragment : Fragment() {
         }else{
             returnedOrderDetails.text ="${returnedOrderDetails.text} Nie"
         }
-
         reportComplaint.setOnClickListener {
             if (reportComplaint.text == getString(R.string.button_report_complaint_close)){
                 reportComplaintMain.visibility = View.VISIBLE

@@ -10,7 +10,7 @@
         android:id="@+id/loginButton"
         android:layout_width="179dp"
         android:layout_height="41dp"
-        android:background="@color/lavender"
+        android:backgroundTint="@color/lavender"
         android:text="Zaloguj"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

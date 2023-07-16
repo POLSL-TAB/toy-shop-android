@@ -12,7 +12,6 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import pl.shop.toyshop.model.OrderComplaint
 import pl.shop.toyshop.model.OrderComplaintDetails
-import pl.shop.toyshop.model.Products
 import java.io.IOException
 
 

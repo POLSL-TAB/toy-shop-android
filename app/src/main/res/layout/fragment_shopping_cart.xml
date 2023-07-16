@@ -52,6 +52,7 @@
         android:layout_height="76dp"
         android:layout_marginLeft="115dp"
         android:layout_marginTop="10dp"
+        android:backgroundTint="@color/lavender"
         android:text="Złoż zamówienie" />
 
 </LinearLayout>

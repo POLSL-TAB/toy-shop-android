@@ -4,14 +4,20 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
+import android.widget.TextView
 import android.widget.Toast
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.Credentials
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
+import pl.shop.toyshop.model.AddingPicture
+import pl.shop.toyshop.model.AddingProduct
 import pl.shop.toyshop.model.Picture
 import pl.shop.toyshop.model.Products
 import java.io.IOException
@@ -20,7 +26,9 @@ class ProductService {
     private val urlProductAll = "http://192.168.0.138:8080/api/products/all"
     private val urlProductById = "http://192.168.0.138:8080/api/products/get?id="
     private val urlPictureAll = "http://192.168.0.138:8080/api/products/images/all"
-    private val urlPictureById = "http://192.168.0.138:8080/api/products/images?productId="
+    private  var  urlPictureById = "http://192.168.0.138:8080/api/products/images?productId="
+    private  var  urlAddProduct = "http://192.168.0.138:8080/api/staff/products/add"
+    private  var  urlAddPicture = "http://192.168.0.138:8080/api/staff/products/images/add"
     private val client = OkHttpClient()
     private val gson = Gson()
 
@@ -133,6 +141,86 @@ class ProductService {
         return@withContext ArrayList()
     }
 
+
+    suspend fun addProduct(
+        context: Context,
+        nameProduct: String,
+        description: String,
+        price: String,
+        stock: Int,
+        username: String,
+        password: String
+    ) {
+        val addProduct = AddingProduct(nameProduct, description, price, stock)
+
+        val json = gson.toJson(addProduct)
+
+        val requestBody = json.toRequestBody("application/json".toMediaType())
+
+        val credentials = Credentials.basic(username, password)
+
+        val request = Request.Builder()
+            .url(urlAddProduct)
+            .post(requestBody)
+            .header("Authorization", credentials)
+            .build()
+
+        withContext(Dispatchers.IO) {
+            val response = client.newCall(request).execute()
+
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    response.body?.string()
+                    Toast.makeText(context, "Produkt został dodany", Toast.LENGTH_LONG)
+
+
+                } else {
+                    Toast.makeText(context, "Błąd dodawania produktu", Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
+        }
+    }
+
+
+    suspend fun addImage(
+        context: Context,
+        productId: Int,
+        pictureB64: String,
+        username: String,
+        password: String
+    ) {
+        val addPicture = AddingPicture(productId, pictureB64)
+
+        val json = gson.toJson(addPicture)
+
+        val requestBody = json.toRequestBody("application/json".toMediaType())
+
+        val credentials = Credentials.basic(username, password)
+
+        val request = Request.Builder()
+            .url(urlAddPicture)
+            .put(requestBody)
+            .header("Authorization", credentials)
+            .build()
+
+        withContext(Dispatchers.IO) {
+            val response = client.newCall(request).execute()
+
+
+            if (response.isSuccessful) {
+                response.body?.string()
+
+
+            } else {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, "Błąd dodawania Zdjęć", Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
+        }
+    }
+
     fun getPicturesById(pictures: ArrayList<Picture>, idProducts: Int): ArrayList<Picture> {
         val newArrayPicture = ArrayList<Picture>()
         for (picture in pictures) {
@@ -150,5 +238,9 @@ class ProductService {
 
             return bitmap
     }
+
+
+
+
 
 }
