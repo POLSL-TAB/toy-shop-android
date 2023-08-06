@@ -2,19 +2,15 @@ package pl.shop.toyshop.ui.addProduct
 
 
 import android.graphics.Bitmap
+import android.graphics.PixelFormat
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 
 import android.os.Bundle
 import android.util.Base64
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
@@ -35,6 +31,7 @@ class addProductFragment : Fragment() {
     private lateinit var imageUris: MutableList<Uri>
     private lateinit var listImageNewProduct: LinearLayout
     private lateinit var imageViewNewProduct: ImageView
+    private lateinit var progressBar: ProgressBar
     val productService = ProductService()
 
 
@@ -50,7 +47,8 @@ class addProductFragment : Fragment() {
         val stockNewProduct = view.findViewById<TextView>(R.id.stockNewProduct)
         val addImageButton = view.findViewById<Button>(R.id.addNewImageButton)
         val addProductButton = view.findViewById<Button>(R.id.addNewProductButton)
-
+        val scrollViewImages = view.findViewById<HorizontalScrollView>(R.id.scrollViewImages)
+        progressBar = view.findViewById(R.id.progressBarAddProduct)
 
         imageViewNewProduct = view.findViewById(R.id.ImageNewProduct)
         listImageNewProduct = view.findViewById(R.id.listImageNewProduct)
@@ -60,8 +58,10 @@ class addProductFragment : Fragment() {
             uri?.let { imageUri ->
                 imageUris.add(imageUri)
                 displayImagesInContainer(listImageNewProduct)
+                scrollViewImages.visibility = View.VISIBLE
             }
         }
+
 
         addImageButton.setOnClickListener {
             getContent.launch("image/*")
@@ -69,6 +69,9 @@ class addProductFragment : Fragment() {
 
         addProductButton.setOnClickListener {
             lifecycleScope.launch {
+                progressBar.visibility = View.VISIBLE
+
+
                 productService.addProduct(
                     requireContext(),
                     nameNewProduct.text.toString(),
@@ -83,11 +86,8 @@ class addProductFragment : Fragment() {
 
                 for (products in productAll) {
                     if (products.name == nameNewProduct.text.toString()) {
-
-
-                        for (i in 1 until listImageNewProduct.childCount) {
+                        for (i in 0 until listImageNewProduct.childCount) {
                             val childView = listImageNewProduct.getChildAt(i)
-
                             if (childView is ImageView) {
                                 val drawable = childView.drawable
                                 if (drawable is BitmapDrawable) {
@@ -112,13 +112,19 @@ class addProductFragment : Fragment() {
                             }
                         }
 
-
-
-
-
+                        nameNewProduct.text = ""
+                        descriptionNewProduct.text = ""
+                        priceNewProduct.text = ""
+                        stockNewProduct.text = ""
+                        scrollViewImages.visibility = View.GONE
                         break
                     }
                 }
+                progressBar.visibility = View.GONE
+
+                Toast.makeText(context, "produkt został dodany", Toast.LENGTH_LONG)
+                    .show()
+
             }
         }
 

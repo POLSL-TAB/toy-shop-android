@@ -7,10 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
@@ -19,6 +16,7 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pl.shop.toyshop.R
@@ -34,6 +32,7 @@ class ProductDetailsFragment : Fragment() {
     private lateinit var backPressedHandler: BackPressedHandler
 
 
+
     private lateinit var viewPager2: ViewPager2
     private lateinit var handler: Handler
     private lateinit var imageList: ArrayList<Int>
@@ -46,7 +45,6 @@ class ProductDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_product_details, container, false)
-
 
         backPressedHandler = BackPressedHandler(this)
         backPressedHandler.register()
@@ -92,6 +90,9 @@ class ProductDetailsFragment : Fragment() {
 
             addToShoppingCart.setOnClickListener {
                 if (countResult > 0) {
+
+
+
                     lifecycleScope.launch {
                         orderService.updateOrAddQuantityByProductId(
                             requireContext(),
@@ -108,6 +109,8 @@ class ProductDetailsFragment : Fragment() {
                         count.text = countResult.toString()
 
                     }
+
+
                 }
             }
         }

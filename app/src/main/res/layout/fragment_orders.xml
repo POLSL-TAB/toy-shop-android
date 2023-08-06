@@ -8,6 +8,13 @@
     android:orientation="vertical"
     tools:context=".ui.orders.OrdersFragment">
 
+    <ProgressBar
+        android:id="@+id/progressBarOrders"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

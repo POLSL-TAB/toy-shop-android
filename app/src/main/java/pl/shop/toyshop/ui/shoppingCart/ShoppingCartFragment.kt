@@ -2,15 +2,12 @@ package pl.shop.toyshop.ui.shoppingCart
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
@@ -28,6 +25,7 @@ class ShoppingCartFragment : Fragment() {
     private var orderService = OrderService()
     private var productService = ProductService()
     private  var summary: Int = 0
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,9 +34,11 @@ class ShoppingCartFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_shopping_cart, container, false)
         val mainCartList = view.findViewById<LinearLayout>(R.id.mainCartList)
         val summaryTextView = view.findViewById<TextView>(R.id.summary)
+        progressBar = view.findViewById(R.id.progressBarShoppingCart)
+
 
         lifecycleScope.launch {
-
+            progressBar.visibility = View.VISIBLE
             val ordersAll = orderService.getItemShoppingAll(
                 requireContext(),
                 sharedViewModel.login.value.toString(),
@@ -85,17 +85,26 @@ class ShoppingCartFragment : Fragment() {
 
 
                 submitOrder.setOnClickListener {
+                    progressBar.visibility = View.VISIBLE
+
                     lifecycleScope.launch {
+
                         orderService.submitOrder(
                             requireContext(), sharedViewModel.login.value.toString(),
                             sharedViewModel.password.value.toString()
                         )
                         mainCartList.removeAllViews()
+
+
                     }
+                    progressBar.visibility = View.GONE
+
                 }
 
 
                 addQuantity.setOnClickListener {
+
+
                     updateQuantityButtonListener(shoppingCart, quantityShoppingCart, 1)
                     shoppingCart.quantity = (shoppingCart.quantity.toInt()+1).toString()
                     priceShoppingCart.text = "${(product?.price?.toInt()?.times(shoppingCart.quantity.toInt())).toString()} zł"
@@ -103,13 +112,18 @@ class ShoppingCartFragment : Fragment() {
                     summaryTextView.text = "$summary zł"
 
 
+
                 }
                 subtractQuantity.setOnClickListener {
+
+
                     updateQuantityButtonListener(shoppingCart, quantityShoppingCart, -1)
                     shoppingCart.quantity = (shoppingCart.quantity.toInt()-1).toString()
                     priceShoppingCart.text = "${(product?.price?.toInt()?.times(shoppingCart.quantity.toInt())).toString()} zł"
                     summary = summary.minus(product!!.price.toInt())
                     summaryTextView.text = "$summary zł"
+
+
 
                 }
 
@@ -117,6 +131,7 @@ class ShoppingCartFragment : Fragment() {
 
                 removeShoppingCart.setOnClickListener {
                     lifecycleScope.launch {
+
                         orderService.deleteProductShoppingCart(
                             requireContext(),
                             sharedViewModel.login.value.toString(),
@@ -131,6 +146,7 @@ class ShoppingCartFragment : Fragment() {
                 summary = result?.let { it1 -> summary.minus(it1) }!!
                     summaryTextView.text = "$summary zł"
 
+
                 }
 
 
@@ -138,9 +154,11 @@ class ShoppingCartFragment : Fragment() {
                 mainCartList.addView(productView)
 
             }
+            progressBar.visibility = View.GONE
 
 
         }
+
 
 
         return view

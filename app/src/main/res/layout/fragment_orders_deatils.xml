@@ -1,139 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.orders.OrdersDeatilsFragment">
 
-    <TextView
-        android:id="@+id/orderIdDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Zamówienie nr: "
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/emailOrderDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="użytkownik: "
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/paidOrderDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Status płatności: "
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/returnedOrderDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Zwrot: "
-        android:textSize="16sp" />
-
-    <Button
-        android:id="@+id/reportComplaintButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/lavender"
-        android:text="@string/button_report_complaint_close"
-        android:textStyle="bold"
-        app:iconGravity="end"
-        app:iconTint="#FF0000" />
-
-    <ScrollView
-        android:id="@+id/ScrollViewDetailsOrderComplain"
-        android:layout_width="match_parent"
-        android:layout_height="211dp"
+    <ProgressBar
+        android:id="@+id/progressBarOrderDetails"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="130dp"
+        android:layout_height="44dp"
         android:visibility="gone"
-        tools:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="278dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/dateSendReason"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Treść:" />
-
-            <TextView
-                android:id="@+id/textViewReasonOrderComplaint"
-                android:layout_width="match_parent"
-                android:layout_height="192dp"
-                android:layout_marginTop="10dp" />
-        </LinearLayout>
-    </ScrollView>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5"
+        tools:visibility="visible" />
 
     <LinearLayout
-        android:id="@+id/reportComplaintMain"
         android:layout_width="match_parent"
-        android:layout_height="278dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="gone">
+        tools:context=".ui.orders.OrdersDeatilsFragment">
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Podaj powód reklamacji"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/reasonComplaint"
-            android:layout_width="match_parent"
-            android:layout_height="197dp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine" />
-
-        <Button
-            android:id="@+id/reportOrderButton"
-            android:layout_width="205dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/lavender"
-            android:text="Wyślij" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="Produkty" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/ordersView"
+            android:id="@+id/orderIdDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:orientation="vertical" >
+            android:text="Zamówienie nr: "
+            android:textSize="16sp" />
 
+        <TextView
+            android:id="@+id/emailOrderDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="użytkownik: "
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/paidOrderDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Status płatności: "
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/returnedOrderDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Zwrot: "
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/reportComplaintButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/lavender"
+            android:text="@string/button_report_complaint_close"
+            android:textStyle="bold"
+            app:iconGravity="end"
+            app:iconTint="#FF0000" />
+
+        <ScrollView
+            android:id="@+id/ScrollViewDetailsOrderComplain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="278dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/dateSendReason"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Treść:" />
+
+                <TextView
+                    android:id="@+id/textViewReasonOrderComplaint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" />
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/reportComplaintMain"
+            android:layout_width="match_parent"
+            android:layout_height="278dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="gone">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Podaj powód reklamacji"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/reasonComplaint"
+                android:layout_width="match_parent"
+                android:layout_height="197dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine" />
+
+            <Button
+                android:id="@+id/reportOrderButton"
+                android:layout_width="205dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/lavender"
+                android:text="Wyślij" />
         </LinearLayout>
-    </ScrollView>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Produkty" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/ordersView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

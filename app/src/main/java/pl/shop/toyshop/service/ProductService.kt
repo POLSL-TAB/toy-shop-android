@@ -16,10 +16,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
-import pl.shop.toyshop.model.AddingPicture
-import pl.shop.toyshop.model.AddingProduct
-import pl.shop.toyshop.model.Picture
-import pl.shop.toyshop.model.Products
+import pl.shop.toyshop.model.*
 import java.io.IOException
 
 class ProductService {
@@ -29,11 +26,13 @@ class ProductService {
     private  var  urlPictureById = "http://192.168.0.138:8080/api/products/images?productId="
     private  var  urlAddProduct = "http://192.168.0.138:8080/api/staff/products/add"
     private  var  urlAddPicture = "http://192.168.0.138:8080/api/staff/products/images/add"
+    private  var  urlUpdateProduct = "http://192.168.0.138:8080/api/staff/products/update"
     private val client = OkHttpClient()
     private val gson = Gson()
 
     suspend fun getProductAll(context: Context): ArrayList<Products> = withContext(Dispatchers.IO) {
         try {
+            println("getProductAll() is called")
             val requestProduct = Request.Builder()
                 .url(urlProductAll)
                 .build()
@@ -44,7 +43,9 @@ class ProductService {
             if (responseProduct.isSuccessful && responseBodyProduct.isNotEmpty()) {
                 // Deserializacja JSON do listy obiektów
                 val listType = object : TypeToken<ArrayList<Products>>() {}.type
-                return@withContext gson.fromJson<ArrayList<Products>>(responseBodyProduct, listType)
+                val productList = gson.fromJson<ArrayList<Products>>(responseBodyProduct, listType)
+                println("getProductAll() - Received ${productList.size} products")
+                return@withContext productList
             } else {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(context, "Błąd pobierania danych", Toast.LENGTH_LONG).show()
@@ -61,6 +62,7 @@ class ProductService {
 
     suspend fun getPictureAll(context: Context): ArrayList<Picture> = withContext(Dispatchers.IO) {
         try {
+            println("getPictureAll() is called")
             val requestPicture = Request.Builder()
                 .url(urlPictureAll)
                 .build()
@@ -71,7 +73,9 @@ class ProductService {
             if (responsePicture.isSuccessful && responseBodyPicture.isNotEmpty()) {
                 // Deserializacja JSON do listy obiektów
                 val listType = object : TypeToken<ArrayList<Picture>>() {}.type
-                return@withContext gson.fromJson<ArrayList<Picture>>(responseBodyPicture, listType)
+                val pictureList = gson.fromJson<ArrayList<Picture>>(responseBodyPicture, listType)
+                println("getPictureAll() - Received ${pictureList.size} pictures")
+                return@withContext pictureList
             } else {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(context, "Błąd pobierania danych", Toast.LENGTH_LONG).show()
@@ -171,8 +175,6 @@ class ProductService {
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     response.body?.string()
-                    Toast.makeText(context, "Produkt został dodany", Toast.LENGTH_LONG)
-
 
                 } else {
                     Toast.makeText(context, "Błąd dodawania produktu", Toast.LENGTH_LONG)
@@ -215,6 +217,48 @@ class ProductService {
             } else {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(context, "Błąd dodawania Zdjęć", Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
+        }
+    }
+
+
+    suspend fun updateProduct(
+        context: Context,
+        id: Int,
+        name: String,
+        description: String,
+        price: String,
+        stock: Int,
+        username: String,
+        password: String
+    ) {
+        val updateProduct = UpdateProduct(id, name, description, price, stock)
+
+        val json = gson.toJson(updateProduct)
+
+        val requestBody = json.toRequestBody("application/json".toMediaType())
+
+        val credentials = Credentials.basic(username, password)
+
+        val request = Request.Builder()
+            .url(urlUpdateProduct)
+            .post(requestBody)
+            .header("Authorization", credentials)
+            .build()
+
+        withContext(Dispatchers.IO) {
+            val response = client.newCall(request).execute()
+
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    response.body?.string()
+                    Toast.makeText(context, "Produkt został zaaktualizowany", Toast.LENGTH_LONG)
+                        .show()
+
+                } else {
+                    Toast.makeText(context, "Błąd aktualizacji  produktu", Toast.LENGTH_LONG)
                         .show()
                 }
             }

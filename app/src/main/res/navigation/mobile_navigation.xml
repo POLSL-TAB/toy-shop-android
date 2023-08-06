@@ -80,10 +80,19 @@
         android:id="@+id/nav_updateProduct"
         android:name="pl.shop.toyshop.ui.updateProduct.updateProductFragment"
         android:label="fragment_update_product"
-        tools:layout="@layout/fragment_update_product" />
+        tools:layout="@layout/fragment_update_product" >
+        <action
+            android:id="@+id/action_nav_updateProduct_to_updateProductMain"
+            app:destination="@id/updateProductMain" />
+    </fragment>
     <fragment
         android:id="@+id/ordersDeatilsFragment"
         android:name="pl.shop.toyshop.ui.orders.OrdersDeatilsFragment"
         android:label="@string/order_complaint_details"
         tools:layout="@layout/fragment_orders_deatils" />
+    <fragment
+        android:id="@+id/updateProductMain"
+        android:name="pl.shop.toyshop.ui.updateProduct.updateProductMain"
+        android:label="fragment_update_product_main"
+        tools:layout="@layout/fragment_update_product_main" />
 </navigation>

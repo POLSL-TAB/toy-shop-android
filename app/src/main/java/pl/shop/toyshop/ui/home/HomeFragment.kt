@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
+import pl.shop.toyshop.MainActivity
 import pl.shop.toyshop.R
 import pl.shop.toyshop.model.Picture
 import pl.shop.toyshop.model.Products
@@ -19,7 +21,8 @@ import pl.shop.toyshop.service.ProductService
 
 class HomeFragment : Fragment() {
     private val sharedViewModel: HomeViewModel by activityViewModels()
-
+    private lateinit var progressBar: ProgressBar
+    val productService = ProductService()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,15 +30,15 @@ class HomeFragment : Fragment() {
     ): View {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val productService = ProductService()
+        progressBar = root.findViewById(R.id.progressBarHome)
+        progressBar.visibility = View.VISIBLE
 
 
-        // Wywołanie funkcji asynchronicznie za pomocą korutyn
         lifecycleScope.launch {
+
             val productAllJson: ArrayList<Products> = productService.getProductAll(requireContext())
             val pictures: ArrayList<Picture> = productService.getPictureAll(requireContext())
 
-            // Tworzenie i ustawianie widoków produktów
             val mainLinear = root.findViewById<LinearLayout>(R.id.mainLinear)
             for (products in productAllJson) {
                 val productView =
@@ -52,7 +55,7 @@ class HomeFragment : Fragment() {
                 productNameTextView.text = products.name
                 productPriceTextView.text = "${products.price} zł"
                 productStockTextView.text = "Pozostało  ${products.stock} sztuk"
-                // Ustawienie obrazka dla produktu (jeśli dostępny)
+
                 if (picture.isNotEmpty()) {
                     val pictureImageDecode = productService.pictureB64ToImage(picture.first())
                     productImageView.setImageBitmap(pictureImageDecode)
@@ -67,11 +70,17 @@ class HomeFragment : Fragment() {
 
 
             }
+
+            progressBar.visibility = View.GONE // Ukrywa ProgressBar na wątku interfejsu użytkownika
+
         }
+
 
 
         return root
     }
+
+
 
 
 }

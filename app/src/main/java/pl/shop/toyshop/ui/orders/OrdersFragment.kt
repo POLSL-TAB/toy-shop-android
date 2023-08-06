@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
+import pl.shop.toyshop.MainActivity
 import pl.shop.toyshop.R
 import pl.shop.toyshop.service.OrderService
 import pl.shop.toyshop.service.ProductService
@@ -21,7 +23,7 @@ class OrdersFragment : Fragment() {
     private val sharedViewModel: LoginViewModel by activityViewModels()
     private val sharedViewModelOrdersFragment: OrdersViewModel by activityViewModels()
     private var orderService = OrderService()
-    private var productService = ProductService()
+    private lateinit var progressBar: ProgressBar
 
 
     override fun onCreateView(
@@ -32,8 +34,11 @@ class OrdersFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_orders, container, false)
 
         val mainLinearOrder = view.findViewById<LinearLayout>(R.id.mainLinearOrder)
+        progressBar = view.findViewById(R.id.progressBarOrders)
 
         lifecycleScope.launch {
+            progressBar.visibility = View.VISIBLE
+
             val ordersAll = orderService.getOrderAll(
                 requireContext(),
                 sharedViewModel.login.value.toString(),
@@ -55,15 +60,21 @@ class OrdersFragment : Fragment() {
                 orderId.text = "Zamówienie nr: ${order.id}"
                 dateOrder.text = "${order.created}"
 
+
                 orderId.setOnClickListener {
+
+
                     sharedViewModelOrdersFragment.order.value = order
                     findNavController().navigate(R.id.action_nav_orders_to_ordersDeatilsFragment)
+
+
                 }
 
 
                 mainLinearOrder.addView(productView)
             }
 
+            progressBar.visibility = View.GONE
         }
 
 
