@@ -27,6 +27,7 @@ class ProductService {
     private  var  urlAddProduct = "http://192.168.0.138:8080/api/staff/products/add"
     private  var  urlAddPicture = "http://192.168.0.138:8080/api/staff/products/images/add"
     private  var  urlUpdateProduct = "http://192.168.0.138:8080/api/staff/products/update"
+    private  var  urlRemovePicture = "http://192.168.0.138:8080/api/staff/products/images/delete?id="
     private val client = OkHttpClient()
     private val gson = Gson()
 
@@ -260,6 +261,33 @@ class ProductService {
                 } else {
                     Toast.makeText(context, "Błąd aktualizacji  produktu", Toast.LENGTH_LONG)
                         .show()
+                }
+            }
+        }
+    }
+
+
+    suspend fun removePicture(
+        context: Context,
+        id: Int,
+        username: String,
+        password: String
+    ) {
+        val credentials = Credentials.basic(username, password)
+
+        val request = Request.Builder()
+            .url(urlRemovePicture + id)
+            .delete()
+            .header("Authorization", credentials)
+            .build()
+
+        withContext(Dispatchers.IO) {
+            val client = OkHttpClient()
+            val response = client.newCall(request).execute()
+
+            withContext(Dispatchers.Main) {
+                if (!response.isSuccessful) {
+                    Toast.makeText(context, "Błąd podczas aktualizacji zdjęć", Toast.LENGTH_LONG).show()
                 }
             }
         }

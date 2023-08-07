@@ -36,9 +36,8 @@ import java.io.OutputStream
 class updateProductMain : Fragment() {
 
 
-
-    private  val sharedViewModel: UpdateProductViewModel by activityViewModels()
-    private  val sharedViewModelLogin: LoginViewModel by activityViewModels()
+    private val sharedViewModel: UpdateProductViewModel by activityViewModels()
+    private val sharedViewModelLogin: LoginViewModel by activityViewModels()
     private lateinit var backPressedHandler: BackPressedHandler
     val productService = ProductService()
     private lateinit var buttonUpdateProduct: Button
@@ -53,7 +52,7 @@ class updateProductMain : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view =  inflater.inflate(R.layout.fragment_update_product_main, container, false)
+        val view = inflater.inflate(R.layout.fragment_update_product_main, container, false)
         backPressedHandler = BackPressedHandler(this)
         backPressedHandler.register()
 
@@ -66,7 +65,8 @@ class updateProductMain : Fragment() {
         ListImagesUpdateProduct = view.findViewById(R.id.ListImagesUpdateProduct)
         imageProductUpdate = view.findViewById(R.id.imageProductUpdate)
         addImageUpdateProduct = view.findViewById(R.id.addImageUpdateProduct)
-        val ScrollviewUpdateproductImage = view.findViewById<HorizontalScrollView>(R.id.ScrollviewUpdateproductImage)
+        val ScrollviewUpdateproductImage =
+            view.findViewById<HorizontalScrollView>(R.id.ScrollviewUpdateproductImage)
 
 
         productName.setText(sharedViewModel.product.value?.name.toString())
@@ -104,15 +104,9 @@ class updateProductMain : Fragment() {
                     sharedViewModelLogin.login.value.toString(),
                     sharedViewModelLogin.password.value.toString()
                 )
+                findImageViewAndProcess(sharedViewModel.product.value!!, ListImagesUpdateProduct)
 
-                val productAll = productService.getProductAll(requireContext())
 
-                for (products in productAll) {
-                    if (products.name == sharedViewModel.product.value!!.name) {
-                        findImageViewAndProcess(products, ListImagesUpdateProduct)
-                        break
-                    }
-                }
             }
         }
 
@@ -194,41 +188,65 @@ class updateProductMain : Fragment() {
     }
 
 
+    private suspend fun findImageViewAndProcess(products: Products, viewGroup: ViewGroup) {
+        // Stworzenie nowej listy obiektów Picture jako kopii z sharedViewModel.pictures
+        val existingPictures = sharedViewModel.pictures.value?.toList() ?: emptyList()
+        val newUris = imageUris.filter { uri ->
+            val bitmapFromUri = decodeUriToBitmap(requireContext(), uri)
+            existingPictures.none { picture ->
+                val bitmapFromPicture = productService.pictureB64ToImage(picture)
+                bitmapFromUri.sameAs(bitmapFromPicture)
+            }
+        }
+
+        // Dodawanie nowych obrazków, które nie są w sharedViewModel.pictures
+        for (uri in newUris) {
+            val encodedImage = encodeUriToBase64(requireContext(), uri)
+            productService.addImage(
+                requireContext(),
+                products.id,
+                encodedImage,
+                sharedViewModelLogin.login.value.toString(),
+                sharedViewModelLogin.password.value.toString()
+            )
+        }
+
+        // Usuwanie obrazków, które są w sharedViewModel.pictures, ale nie ma ich w imageUris
+        for (picture in existingPictures) {
+
+            val bitmapFromPicture = productService.pictureB64ToImage(picture)
+            if (bitmapFromPicture != null && !imageUrisContainBitmap(bitmapFromPicture)) {
+                productService.removePicture(
+                    requireContext(), picture.id, sharedViewModelLogin.login.value.toString(),
+                    sharedViewModelLogin.password.value.toString()
+                )
+            }
+        }
+    }
+
+    private fun imageUrisContainBitmap(bitmap: Bitmap): Boolean {
+        for (uri in imageUris) {
+            val bitmapFromUri = decodeUriToBitmap(requireContext(), uri)
+            if (bitmapFromUri != null && bitmapFromUri.sameAs(bitmap)) {
+                return true
+            }
+        }
+        return false
+    }
+    private fun decodeUriToBitmap(context: Context, uri: Uri): Bitmap {
+        val inputStream = context.contentResolver.openInputStream(uri)
+        val bitmap = BitmapFactory.decodeStream(inputStream)
+        inputStream?.close()
+        return bitmap
+    }
 
 
-
-
-
-
-
-      private suspend fun findImageViewAndProcess(products: Products, viewGroup: ViewGroup) {
-          for (i in 0 until viewGroup.childCount) {
-              val childView = viewGroup.getChildAt(i)
-
-              if (childView is ImageView) {
-
-                  val drawable = childView.drawable
-                  if (drawable is BitmapDrawable) {
-                      val bitmap = drawable.bitmap
-                      val byteArrayOutputStream = ByteArrayOutputStream()
-                      bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-                      val byteArray = byteArrayOutputStream.toByteArray()
-                      val encodedImage = Base64.encodeToString(byteArray, Base64.NO_WRAP)
-                      productService.addImage(
-                          requireContext(),
-                          products.id,
-                          encodedImage,
-                          sharedViewModelLogin.login.value.toString(),
-                          sharedViewModelLogin.password.value.toString()
-                      )
-                  }
-              } else if (childView is ViewGroup) {
-                  // Jeśli znaleziony widok jest ViewGroup (np. LinearLayout),
-                  // wykonujemy rekurencyjnie tę samą funkcję, aby znaleźć ImageView
-                  findImageViewAndProcess(products, childView)
-              }
-          }
-      }
+    private fun encodeUriToBase64(context: Context, uri: Uri): String {
+        val inputStream = context.contentResolver.openInputStream(uri)
+        val imageByteArray = inputStream?.readBytes()
+        inputStream?.close()
+        return Base64.encodeToString(imageByteArray, Base64.NO_WRAP)
+    }
 
 
 
@@ -297,7 +315,7 @@ class updateProductMain : Fragment() {
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
-        layoutParams.setMargins(0,0,10,0)
+        layoutParams.setMargins(0, 0, 10, 0)
         linearLayout.layoutParams = layoutParams
         linearLayout.visibility = View.VISIBLE
 
