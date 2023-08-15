@@ -70,8 +70,7 @@ class LoginFragment : Fragment() {
         val passwordText = view.findViewById<EditText>(R.id.editTextTextPassword)
         val loginButton = view.findViewById<Button>(R.id.loginButton)
 
-         val email = "example@admin"
-        val password = "example"
+
 
         loginButton.setOnClickListener {
             progressBar.visibility = View.VISIBLE
@@ -79,8 +78,8 @@ class LoginFragment : Fragment() {
             lifecycleScope.launch {
 
             if (loginItem.title == getString(R.string.menu_login)) {
-                val email = email //emailText.text.toString()
-                val password = password //passwordText.text.toString()
+                val email =emailText.text.toString()
+                val password = passwordText.text.toString()
                 val userRole = loginService.checkingRoleUser(email, password)
                 val staffRole = loginService.checkingRoleStaff(email, password)
                 val adminRole = loginService.checkingRoleAdmin(email, password)

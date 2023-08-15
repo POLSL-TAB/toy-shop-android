@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
 import pl.shop.toyshop.R
 import pl.shop.toyshop.service.BackPressedHandler
@@ -33,24 +34,28 @@ class SignupFragment : Fragment() {
         val surname = view.findViewById<EditText>(R.id.surnameSignupEditText)
         val signupButton = view.findViewById<Button>(R.id.signupButton)
 
-        var nameOptional: String
-        var surnameOptional: String
+
         signupButton.setOnClickListener {
+
             lifecycleScope.launch {
                 if (name.text.isNotEmpty() && surname.text.isNotEmpty()) {
-                    loginService.registerUser(
+                     loginService.registerUser(
                         requireContext(),
                         email.text.toString(),
                         password.text.toString(),
                         name.text.toString(),
                         surname.text.toString()
                     )
+                    findNavController().navigate(R.id.action_signupFragment_to_nav_login)
+
                 } else if (name.text.isNotEmpty()) {
-                    loginService.registerUser(
+                      loginService.registerUser(
                         requireContext(),
                         email.text.toString(),
                         password.text.toString(),
                         name.text.toString())
+                    findNavController().navigate(R.id.action_signupFragment_to_nav_login)
+
 
                 } else if (surname.text.isNotEmpty()) {
                     loginService.registerUser(
@@ -60,12 +65,16 @@ class SignupFragment : Fragment() {
                         "",
                         surname.text.toString()
                     )
+                    findNavController().navigate(R.id.action_signupFragment_to_nav_login)
+
                 } else {
-                    loginService.registerUser(
+                     loginService.registerUser(
                         requireContext(),
                         email.text.toString(),
                         password.text.toString()
                     )
+                    findNavController().navigate(R.id.action_signupFragment_to_nav_login)
+
                 }
 
             }

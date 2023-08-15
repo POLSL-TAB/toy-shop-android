@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.Toast
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import okhttp3.Credentials
 import okhttp3.MediaType.Companion.toMediaType
@@ -70,40 +71,32 @@ class LoginAndSignupService {
         email: String,
         password: String,
         name: String = "",
-        surname: String = "",
-
-    ):Boolean {
+        surname: String = ""
+    ) {
         val addUser = User(email, password, name, surname)
 
         val json = gson.toJson(addUser)
-
         val requestBody = json.toRequestBody("application/json".toMediaType())
 
         val request = Request.Builder()
             .url(urlSignup)
             .post(requestBody)
             .build()
-        var isSuccess = false
 
-        withContext(Dispatchers.IO) {
-            val response = client.newCall(request).execute()
+        val response = client.newCall(request).execute()
 
+        if (response.isSuccessful) {
             withContext(Dispatchers.Main) {
-                if (response.isSuccessful) {
-                    response.body?.string()
-                    Toast.makeText(context, "Zarajestrowano pomyślnie", Toast.LENGTH_LONG)
-                        .show()
-                    isSuccess = true
-
-
-                } else {
-                    Toast.makeText(context, "Użytkownik o podanym emailu już istnieje", Toast.LENGTH_LONG)
-                        .show()
-
-                }
+                Toast.makeText(context, "Zarejestrowano pomyślnie", Toast.LENGTH_LONG).show()
             }
+
+        } else {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(context, "Użytkownik o podanym emailu już istnieje", Toast.LENGTH_LONG).show()
+            }
+
         }
-        return  isSuccess
     }
+
 
 }

@@ -12,6 +12,7 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
 import pl.shop.toyshop.R
 import pl.shop.toyshop.service.AdminService
@@ -105,6 +106,7 @@ class adminPanelFragmentDetails : Fragment() {
                     )
                 }
                 dialog.dismiss()
+                findNavController().navigate(R.id.action_adminPanelFragmentDetails_to_nav_adminPanel)
             }
             .setNegativeButton("Anuluj") { dialog, _ ->
                 dialog.dismiss()
