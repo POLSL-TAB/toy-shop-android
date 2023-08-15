@@ -30,7 +30,8 @@
     <string name="button_report_complaint_open">Zamknij okno reklamacji</string>
     <string name="button_show_orders_complain">Pokaż zgłoszenie reklamacji</string>
     <string name="button_hide_orders_complain">Zamknij zgłoszenie reklamacji</string>
-
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

@@ -20,20 +20,20 @@ import pl.shop.toyshop.model.*
 import java.io.IOException
 
 class ProductService {
-    private val urlProductAll = "http://192.168.0.138:8080/api/products/all"
-    private val urlProductById = "http://192.168.0.138:8080/api/products/get?id="
-    private val urlPictureAll = "http://192.168.0.138:8080/api/products/images/all"
-    private  var  urlPictureById = "http://192.168.0.138:8080/api/products/images?productId="
-    private  var  urlAddProduct = "http://192.168.0.138:8080/api/staff/products/add"
-    private  var  urlAddPicture = "http://192.168.0.138:8080/api/staff/products/images/add"
-    private  var  urlUpdateProduct = "http://192.168.0.138:8080/api/staff/products/update"
-    private  var  urlRemovePicture = "http://192.168.0.138:8080/api/staff/products/images/delete?id="
+    private val urlProductAll = "${GlobalVariables.serverIpAddress}products/all"
+    private val urlProductById = "${GlobalVariables.serverIpAddress}products/get?id="
+    private val urlPictureAll = "${GlobalVariables.serverIpAddress}products/images/all"
+    private  var  urlPictureById = "${GlobalVariables.serverIpAddress}products/images?productId="
+    private  var  urlAddProduct = "${GlobalVariables.serverIpAddress}staff/products/add"
+    private  var  urlAddPicture = "${GlobalVariables.serverIpAddress}staff/products/images/add"
+    private  var  urlUpdateProduct = "${GlobalVariables.serverIpAddress}staff/products/update"
+    private  var  urlRemovePicture = "${GlobalVariables.serverIpAddress}staff/products/images/delete?id="
     private val client = OkHttpClient()
     private val gson = Gson()
 
     suspend fun getProductAll(context: Context): ArrayList<Products> = withContext(Dispatchers.IO) {
         try {
-            println("getProductAll() is called")
+
             val requestProduct = Request.Builder()
                 .url(urlProductAll)
                 .build()
@@ -63,7 +63,7 @@ class ProductService {
 
     suspend fun getPictureAll(context: Context): ArrayList<Picture> = withContext(Dispatchers.IO) {
         try {
-            println("getPictureAll() is called")
+
             val requestPicture = Request.Builder()
                 .url(urlPictureAll)
                 .build()

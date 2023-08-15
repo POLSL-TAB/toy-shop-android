@@ -14,6 +14,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import pl.shop.toyshop.databinding.ActivityMainBinding
+import pl.shop.toyshop.service.GlobalVariables
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        GlobalVariables.serverIpAddress = "http://192.168.0.138:8080/api/"
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 

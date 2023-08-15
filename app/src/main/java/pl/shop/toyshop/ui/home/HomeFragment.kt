@@ -13,7 +13,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.launch
-import pl.shop.toyshop.MainActivity
 import pl.shop.toyshop.R
 import pl.shop.toyshop.model.Picture
 import pl.shop.toyshop.model.Products
@@ -39,7 +38,7 @@ class HomeFragment : Fragment() {
             val productAllJson: ArrayList<Products> = productService.getProductAll(requireContext())
             val pictures: ArrayList<Picture> = productService.getPictureAll(requireContext())
 
-            val mainLinear = root.findViewById<LinearLayout>(R.id.mainLinear)
+            val mainLinear = root.findViewById<LinearLayout>(R.id.mainLinearAdminList)
             for (products in productAllJson) {
                 val productView =
                     layoutInflater.inflate(R.layout.fragment_home_list, mainLinear, false)

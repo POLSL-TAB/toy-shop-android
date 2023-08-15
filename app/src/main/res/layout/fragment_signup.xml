@@ -19,7 +19,7 @@
         app:layout_constraintVertical_bias="0.062" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress2"
+        android:id="@+id/emailSignupEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -33,7 +33,7 @@
         app:layout_constraintVertical_bias="0.374" />
 
     <EditText
-        android:id="@+id/editTextTextPassword2"
+        android:id="@+id/passwordSignupEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -47,7 +47,7 @@
         app:layout_constraintVertical_bias="0.47" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/nameSignupEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -61,7 +61,7 @@
         app:layout_constraintVertical_bias="0.581" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/surnameSignupEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -75,7 +75,7 @@
         app:layout_constraintVertical_bias="0.692" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/signupButton"
         android:layout_width="213dp"
         android:layout_height="51dp"
         android:backgroundTint="@color/lavender"

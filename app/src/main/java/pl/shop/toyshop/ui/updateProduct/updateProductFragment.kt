@@ -30,8 +30,10 @@ class updateProductFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_update_product, container, false)
+        progressBar = view.findViewById(R.id.ProgressbarUpdateProduct)
 
 lifecycleScope.launch {
+    progressBar.visibility = View.VISIBLE
     val productAllJson: ArrayList<Products> = productService.getProductAll(requireContext())
     val pictures: ArrayList<Picture> = productService.getPictureAll(requireContext())
 
@@ -52,13 +54,17 @@ lifecycleScope.launch {
         }
 
         productView.setOnClickListener {
+
             sharedViewModel.pictures.value = picture
             sharedViewModel.product.value = products
             findNavController().navigate(R.id.action_nav_updateProduct_to_updateProductMain)
+
         }
 
         listToUpdate.addView(productView)
     }
+    progressBar.visibility = View.GONE
+
 }
 
         return view

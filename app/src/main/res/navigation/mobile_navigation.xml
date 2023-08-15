@@ -70,12 +70,20 @@
         android:id="@+id/nav_adminPanel"
         android:name="pl.shop.toyshop.ui.adminPanel.adminPanelFragment"
         android:label="fragment_admin_panel"
-        tools:layout="@layout/fragment_admin_panel" />
+        tools:layout="@layout/fragment_admin_panel" >
+        <action
+            android:id="@+id/action_nav_adminPanel_to_adminPanelFragmentDetails"
+            app:destination="@id/adminPanelFragmentDetails" />
+    </fragment>
     <fragment
         android:id="@+id/nav_complaints"
-        android:name="pl.shop.toyshop.ui.complaints.complaintsFragment"
+        android:name="pl.shop.toyshop.ui.complaints.ComplaintsFragment"
         android:label="fragment_complaints"
-        tools:layout="@layout/fragment_complaints" />
+        tools:layout="@layout/fragment_complaints" >
+        <action
+            android:id="@+id/action_nav_complaints_to_complaintsDetails"
+            app:destination="@id/complaintsDetails" />
+    </fragment>
     <fragment
         android:id="@+id/nav_updateProduct"
         android:name="pl.shop.toyshop.ui.updateProduct.updateProductFragment"
@@ -95,4 +103,14 @@
         android:name="pl.shop.toyshop.ui.updateProduct.updateProductMain"
         android:label="fragment_update_product_main"
         tools:layout="@layout/fragment_update_product_main" />
+    <fragment
+        android:id="@+id/complaintsDetails"
+        android:name="pl.shop.toyshop.ui.complaints.ComplaintsDetails"
+        android:label="fragment_complaints_details"
+        tools:layout="@layout/fragment_complaints_details" />
+    <fragment
+        android:id="@+id/adminPanelFragmentDetails"
+        android:name="pl.shop.toyshop.ui.adminPanel.adminPanelFragmentDetails"
+        android:label="fragment_admin_panel_details"
+        tools:layout="@layout/fragment_admin_panel_details" />
 </navigation>

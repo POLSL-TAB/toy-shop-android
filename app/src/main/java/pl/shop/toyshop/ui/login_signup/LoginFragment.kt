@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
@@ -17,9 +16,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
-import pl.shop.toyshop.MainActivity
 import pl.shop.toyshop.R
-import pl.shop.toyshop.service.LoginService
+import pl.shop.toyshop.service.LoginAndSignupService
 
 
 
@@ -30,7 +28,7 @@ class LoginFragment : Fragment() {
     private lateinit var progressBar: ProgressBar
 
     private val loginViewModel: LoginViewModel by activityViewModels()
-    val loginService = LoginService()
+    private val loginService = LoginAndSignupService()
 
 
     override fun onCreateView(
@@ -72,7 +70,7 @@ class LoginFragment : Fragment() {
         val passwordText = view.findViewById<EditText>(R.id.editTextTextPassword)
         val loginButton = view.findViewById<Button>(R.id.loginButton)
 
-         val email = "example@staff"
+         val email = "example@admin"
         val password = "example"
 
         loginButton.setOnClickListener {
@@ -81,8 +79,8 @@ class LoginFragment : Fragment() {
             lifecycleScope.launch {
 
             if (loginItem.title == getString(R.string.menu_login)) {
-                val email = email  //emailText.text.toString()
-                val password = password  //passwordText.text.toString()
+                val email = email //emailText.text.toString()
+                val password = password //passwordText.text.toString()
                 val userRole = loginService.checkingRoleUser(email, password)
                 val staffRole = loginService.checkingRoleStaff(email, password)
                 val adminRole = loginService.checkingRoleAdmin(email, password)

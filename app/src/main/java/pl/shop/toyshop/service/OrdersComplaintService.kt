@@ -18,8 +18,8 @@ import java.io.IOException
 class OrdersComplaintService {
 
 
-    private val urlCreateOrderComplaint = "http://192.168.0.138:8080/api/order/complaint/create"
-    private val urlGetOrderComplaint = "http://192.168.0.138:8080/api/order/complaint/get?orderId="
+    private val urlCreateOrderComplaint = "${GlobalVariables.serverIpAddress}order/complaint/create"
+    private val urlGetOrderComplaint = "${GlobalVariables.serverIpAddress}order/complaint/get?orderId="
 
     private val client = OkHttpClient()
     private val gson = Gson()

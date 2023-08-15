@@ -47,6 +47,7 @@ class updateProductMain : Fragment() {
     private lateinit var ListImagesUpdateProduct: LinearLayout
     private lateinit var imageProductUpdate: ImageView
     private lateinit var addImageUpdateProduct: Button
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,6 +68,7 @@ class updateProductMain : Fragment() {
         addImageUpdateProduct = view.findViewById(R.id.addImageUpdateProduct)
         val ScrollviewUpdateproductImage =
             view.findViewById<HorizontalScrollView>(R.id.ScrollviewUpdateproductImage)
+        progressBar = view.findViewById(R.id.progressBarUpdateProductDetails)
 
 
         productName.setText(sharedViewModel.product.value?.name.toString())
@@ -94,6 +96,8 @@ class updateProductMain : Fragment() {
 
         buttonUpdateProduct.setOnClickListener {
             lifecycleScope.launch {
+                progressBar.visibility = View.VISIBLE
+
                 productService.updateProduct(
                     requireContext(),
                     sharedViewModel.product.value!!.id,
@@ -105,6 +109,7 @@ class updateProductMain : Fragment() {
                     sharedViewModelLogin.password.value.toString()
                 )
                 findImageViewAndProcess(sharedViewModel.product.value!!, ListImagesUpdateProduct)
+                progressBar.visibility = View.GONE
 
 
             }

@@ -19,11 +19,11 @@ import java.io.IOException
 
 class OrderService {
 
-    private val urlItemShoppingCartAll = "http://192.168.0.138:8080/api/cart/items"
-    private val urlOrderUpdateQuantity = "http://192.168.0.138:8080/api/cart/add"
-    private val urlDeleteProductShoppingCart = "http://192.168.0.138:8080/api/cart/delete?id="
-    private val urlSubmitOrder = "http://192.168.0.138:8080/api/order/create"
-    private val urlOrderAll = "http://192.168.0.138:8080/api/order/all"
+    private val urlItemShoppingCartAll = "${GlobalVariables.serverIpAddress}cart/items"
+    private val urlOrderUpdateQuantity = "${GlobalVariables.serverIpAddress}cart/add"
+    private val urlDeleteProductShoppingCart = "${GlobalVariables.serverIpAddress}cart/delete?id="
+    private val urlSubmitOrder = "${GlobalVariables.serverIpAddress}order/create"
+    private val urlOrderAll = "${GlobalVariables.serverIpAddress}order/all"
     private val client = OkHttpClient()
     private val gson = Gson()
 
